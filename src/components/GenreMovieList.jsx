@@ -1,21 +1,22 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import MovieList from "./MovieList";
 import { useApiStore } from "../store/apiStore";
+import { mockGenres } from "../../mock-json";
 
 function GenreMovieList() {
-  const {getGenres} = useApiStore();
-  const [genres,setGenres] = useState([])
-    useEffect(() => {
-      const fetchGenres = async () => {
-        try {
-          const response = await getGenres();
-          setGenres(response || []);
-        } catch (err) {
-          console.error("Error fetching movies:", err);
-        }
-      };
-      fetchGenres();
-    }, []);
+  const { getGenres } = useApiStore();
+  const [genres, setGenres] = useState(mockGenres ?? []);
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const response = await getGenres();
+        setGenres(response || []);
+      } catch (err) {
+        console.error("Error fetching movies:", err);
+      }
+    };
+    fetchGenres();
+  }, []);
   return (
     <div>
       {genres.map(
@@ -28,7 +29,7 @@ function GenreMovieList() {
               >
                 {item.name}
               </h2>
-              <MovieList genre={item.name} index_={index} />
+              <MovieList genre={item.id} index_={index} />
             </div>
           )
       )}
