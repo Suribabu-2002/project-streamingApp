@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="100%" height="100%">
+    <!-- Background shape fills the entire space -->
+    <rect x="0" y="0" width="140" height="140" rx="25" ry="25" fill="#131520" />
+
+    <!-- Colorful gradient background -->
+    <defs>
+        <linearGradient id="joy-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff2e63" />
+            <stop offset="50%" stop-color="#7b2cbf" />
+            <stop offset="100%" stop-color="#3f8efc" />
+        </linearGradient>
+    </defs>
+
+    <!-- Main logo shape - stylized "play" button -->
+    <circle cx="70" cy="70" r="50" fill="url(#joy-gradient)" />
+
+    <!-- Centered play triangle -->
+    <polygon points="55,45 95,70 55,95" fill="#1a1a2e" />
+</svg>
