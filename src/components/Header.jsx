@@ -47,11 +47,11 @@ function Header() {
                 <HeaderItem key={index + 1} name={""} Icon={item.icon} />
               )
           )}
-          <button className="md:hidden" onClick={() => setToggle(!toggle)}>
+          <button className="md:hidden bg-inherit" onClick={() => setToggle(!toggle)}>
             <HeaderItem name={""} Icon={HiDotsVertical} />
-            {toggle ? (
+            {toggle && (
               <div
-                className="absolute mt-3 bg-[#121212] 
+                className="absolute mt-3 bg-[#131520] 
             border-[1px] border-gray-700 p-3 px-5 py-4"
               >
                 {menu.map(
@@ -65,7 +65,7 @@ function Header() {
                     )
                 )}
               </div>
-            ) : null}
+            )}
           </button>
         </div>
       </div>

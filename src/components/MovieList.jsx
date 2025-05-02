@@ -54,7 +54,7 @@ function MovieList({ genre, index_ }) {
 
       <div
         ref={elementRef}
-        className="flex overflow-x-auto gap-8 scrollbar-none scroll-smooth pt-4 px-3 pb-4"
+        className="flex overflow-x-auto gap-4 md:gap-8 scrollbar-none scroll-smooth"
       >
         {shuffleArray([...movieList]).map((item, index) => (
           <React.Fragment key={index + 1}>

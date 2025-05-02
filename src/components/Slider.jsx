@@ -9,8 +9,6 @@ function Slider() {
   const { getTopShows, loading } = useApiStore();
   const [moviesList, setMoviesList] = useState(mockData ?? []);
   const elementRef = useRef();
-  const [cardWidth, setCardWidth] = useState(0);
-  const [focusedIndex, setFocusedIndex] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -24,9 +22,8 @@ function Slider() {
     fetchMovies();
   }, [getTopShows]);
 
-  // Separate useEffect for auto-slide
   useEffect(() => {
-    if (!screenWidth) return; // Don't start auto-slide until card width is set
+    if (!screenWidth) return;
 
     const interval = setInterval(() => {
       if (elementRef.current) {
@@ -35,48 +32,30 @@ function Slider() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [cardWidth]);
+  }, []);
 
   const sliderRight = (element) => {
-    element.scrollLeft +=
+    const scrollAmount =
       screenWidth - (screenWidth - elementRef.current.offsetWidth + 108);
-  };
-  const sliderLeft = (element) => {
-    element.scrollLeft -=
-      screenWidth - (screenWidth - elementRef.current.offsetWidth + 108);
-  };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            // Set the src from data-src when image comes into view
-            if (img.dataset.src) {
-              img.src = img.dataset.src;
-              img.removeAttribute("data-src");
-            }
-            const index = Number(img.getAttribute("data-index"));
-            if (!isNaN(index)) {
-              setFocusedIndex(index);
-            }
-          }
-        });
-      },
-      {
-        threshold: 0.5,
-        rootMargin: "50px",
-      }
-    );
-
-    const images = elementRef.current?.querySelectorAll("img");
-    if (images) {
-      images.forEach((img) => observer.observe(img));
+    if (element.scrollLeft + element.clientWidth >= element.scrollWidth - 10) {
+      // If near the end, quickly return to start
+      element.scrollLeft = 0;
+    } else {
+      element.scrollLeft += scrollAmount;
     }
+  };
 
-    return () => observer.disconnect();
-  }, [moviesList]);
+  const sliderLeft = (element) => {
+    const scrollAmount =
+      screenWidth - (screenWidth - elementRef.current.offsetWidth + 108);
+
+    if (element.scrollLeft === 0) {
+      element.scrollLeft = element.scrollWidth;
+    } else {
+      element.scrollLeft -= scrollAmount;
+    }
+  };
 
   if (loading) return <div className="text-white text-center">Loading...</div>;
 
@@ -84,12 +63,12 @@ function Slider() {
     <div>
       <HiChevronLeft
         className="hidden md:block text-white w-8 h-8 md:w-12 md:h-12 z-10 absolute -left-4
-        mx-8 mt-[150px] cursor-pointer "
+        mx-8 mt-[150px] cursor-pointer opacity-80 hover:opacity-100"
         onClick={() => sliderLeft(elementRef.current)}
       />
       <HiChevronRight
         className="hidden md:block text-white w-8 h-8 md:w-12 md:h-12 z-10 absolute
-        mx-8 mt-[150px] cursor-pointer -right-4"
+        mx-8 mt-[150px] cursor-pointer -right-4 opacity-80 hover:opacity-100"
         onClick={() => sliderRight(elementRef.current)}
       />
 
