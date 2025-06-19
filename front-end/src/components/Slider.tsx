@@ -14,7 +14,7 @@ const Slider: React.FC = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await getTopShows();
+        const response = await getTopShows(10);
         setMoviesList(response.movies || []);
       } catch (err) {
         console.error("Error fetching movies:", err);

@@ -73,7 +73,7 @@ interface ApiState {
   client: streamingAvailability.Client;
   setLoading: (status: boolean) => void;
   setError: (error: string | null) => void;
-  getTopShows: () => Promise<any>;
+  getTopShows: (count:number) => Promise<any>;
   getFilteredShows: (genreId: string) => Promise<any>;
   getGenres: () => Promise<any>;
 }
@@ -93,10 +93,10 @@ export const useApiStore = create<ApiState>((set, get) => ({
   setLoading: (status: boolean) => set({ loading: status }),
   setError: (error: string | null) => set({ error }),
 
-  getTopShows: async () => {
+  getTopShows: async (count:number) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get("/api/movies", {
+      const response = await axios.get(`/api/movies?topShow=${count}`, {
       });
       const shows: any = response.data;
       set({ shows, loading: false });
