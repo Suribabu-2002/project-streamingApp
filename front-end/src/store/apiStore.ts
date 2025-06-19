@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import * as streamingAvailability from "streaming-availability";
+import axios from "axios";
 
 const RAPID_API_KEY = "a85bd9e89dmsh6c727d139c51e2dp1a0efejsnec97f6c3f8c1";
 
@@ -66,15 +67,15 @@ export interface Genre {
 interface ApiState {
   shows: Show[];
   filteredShows: Show[];
-  genres: Genre[];
+  genres: string[];
   loading: boolean;
   error: string | null;
   client: streamingAvailability.Client;
   setLoading: (status: boolean) => void;
   setError: (error: string | null) => void;
-  getTopShows: () => Promise<any[]>;
-  getFilteredShows: (genreId: string) => Promise<{ shows: Show[] }>;
-  getGenres: () => Promise<Genre[]>;
+  getTopShows: () => Promise<any>;
+  getFilteredShows: (genreId: string) => Promise<any>;
+  getGenres: () => Promise<any>;
 }
 
 export const useApiStore = create<ApiState>((set, get) => ({
@@ -95,19 +96,13 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getTopShows: async () => {
     try {
       set({ loading: true, error: null });
-      const client = get().client;
-      const response = await client.showsApi.getTopShows({
-        country: "us",
-        service: "netflix",
+      const response = await axios.get("/api/movies", {
       });
-
-      // Map the API response to our Show type
-      const shows:any = response
-  
+      const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
-    } catch (error) {
-      set({ error: (error as Error).message, loading: false });
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
       throw error;
     }
   },
@@ -115,37 +110,13 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getFilteredShows: async (genreId: string) => {
     try {
       set({ loading: true, error: null });
-      // Using basic fetch since the API method isn't available
-      const response = await fetch(
-        `https://streaming-availability.p.rapidapi.com/search/basic?country=us&service=netflix&genre=${genreId}`,
-        {
-          headers: {
-            "X-RapidAPI-Key": RAPID_API_KEY,
-            "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
-          },
-        }
-      );
-      const data = await response.json();
-      const shows = (data.shows || []).map((show: any) => ({
-        id: show.id,
-        title: show.title,
-        itemType: "show" as const,
-        showType: "tvShow" as const,
-        imdbId: show.imdbId,
-        tmdbId: show.tmdbId,
-        originalTitle: show.originalTitle,
-        firstAirYear: show.firstAirYear,
-        lastAirYear: show.lastAirYear,
-        genres: show.genres,
-        imageSet: {
-          backdrop: { w1280: show.imageSet.backdrop?.w1280 || "" },
-          verticalPoster: { w720: show.imageSet.verticalPoster?.w720 || "" },
-        },
-      }));
-      set({ filteredShows: shows, loading: false });
-      return { shows };
-    } catch (error) {
-      set({ error: (error as Error).message, loading: false });
+      const response = await axios.get(`/api/movies?genre=${genreId}`, {
+      });
+      const shows: any = response.data;
+      set({ shows, loading: false });
+      return shows;
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
       throw error;
     }
   },
@@ -153,27 +124,13 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getGenres: async () => {
     try {
       set({ loading: true, error: null });
-      // Using basic fetch since the API method isn't available
-      const response = await fetch(
-        "https://streaming-availability.p.rapidapi.com/genres",
-        {
-          headers: {
-            "X-RapidAPI-Key": RAPID_API_KEY,
-            "X-RapidAPI-Host": "streaming-availability.p.rapidapi.com",
-          },
-        }
-      );
-      const data = await response.json();
-      const genres = Object.entries(data || {}).map(
-        ([id, name]: [string, any]) => ({
-          id,
-          name: String(name),
-        })
-      );
+      const response = await axios.get("/api/genres", {
+      });
+      const genres: any = response.data;
       set({ genres, loading: false });
       return genres;
-    } catch (error) {
-      set({ error: (error as Error).message, loading: false });
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
       throw error;
     }
   },

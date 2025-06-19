@@ -15,12 +15,12 @@ const Slider: React.FC = () => {
     const fetchMovies = async () => {
       try {
         const response = await getTopShows();
-        setMoviesList(response || []);
+        setMoviesList(response.movies || []);
       } catch (err) {
         console.error("Error fetching movies:", err);
       }
     };
-    // fetchMovies();
+    fetchMovies();
   }, [getTopShows]);
 
   useEffect(() => {
