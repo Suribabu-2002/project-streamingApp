@@ -15,7 +15,7 @@ export const getMovies = async (req, res) => {
 
     if (req.query.topShows) {
       const topShows = req.query.topShows;
-      const topLimit = parseInt(topShows, 10) || 10;
+      const topLimit = Number(topShows) || 10;
       const movies = await Movie.find({})
         .sort({ rating: -1 })
         .limit(topLimit)

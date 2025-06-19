@@ -24,7 +24,7 @@ const HrMovieCard: React.FC<HrMovieCardProps> = ({ movie }) => {
         alt={movie.title}
         loading="lazy"
       />
-      <h2 className="w-[110px] md:w-[260px] text-white mt-2">
+      <h2 className="w-[110px] md:w-[260px] text-white mt-2 overflow-hidden text-ellipsis truncate">
         {movie.title}
       </h2>
     </section>
