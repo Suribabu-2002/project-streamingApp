@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="100%" height="100%">
+    <!-- Background shape fills the entire space -->
+    <rect x="0" y="0" width="400" height="200" rx="25" ry="25" fill="#131520" />
+
+    <!-- Colorful gradient background -->
+    <defs>
+        <linearGradient id="joy-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff2e63" />
+            <stop offset="50%" stop-color="#7b2cbf" />
+            <stop offset="100%" stop-color="#3f8efc" />
+        </linearGradient>
+    </defs>
+
+    <!-- Main logo shape - stylized "play" button -->
+    <circle cx="130" cy="100" r="50" fill="url(#joy-gradient)" />
+    <polygon points="118,75 155,100 118,125" fill="#1a1a2e" />
+
+    <!-- Text -->
+    <text x="190" y="112" font-family="Arial, sans-serif" font-weight="bold" font-size="42" fill="#ffffff">
+        joyboy
+    </text>
+
+    <!-- Playful circular accents -->
+    <circle cx="350" cy="65" r="12" fill="#ff2e63" opacity="0.8" />
+    <circle cx="370" cy="100" r="9" fill="#7b2cbf" opacity="0.8" />
+    <circle cx="350" cy="135" r="7" fill="#3f8efc" opacity="0.8" />
+
+    <!-- Curved smile beneath text -->
+    <path d="M190,125 Q240,150 290,125" stroke="#ff2e63" stroke-width="5" fill="none" />
+</svg>
