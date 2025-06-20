@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Show } from "streaming-availability";
 
 interface ImageSet {
   verticalPoster: {
@@ -12,12 +14,20 @@ interface Movie {
 }
 
 interface HrMovieCardProps {
-  movie: Movie;
+  movie: Show;
 }
 
 const HrMovieCard: React.FC<HrMovieCardProps> = ({ movie }) => {
+  const navigate = useNavigate();
+  const handlePosterClick = () => {
+    let link = `/movie/${movie.id}`;
+    if (link) navigate(link);
+  };
   return (
-    <section className="hover:scale-110 transition-all duration-150 ease-in w-fit">
+    <section
+      onClick={handlePosterClick}
+      className="hover:scale-110 transition-all duration-150 ease-in w-fit"
+    >
       <img
         src={movie.imageSet.verticalPoster.w720}
         className="w-[110px] md:w-[260px] h-52 md:h-[360px] rounded-lg hover:border-[3px] border-gray-400 cursor-pointer"

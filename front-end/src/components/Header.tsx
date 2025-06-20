@@ -3,6 +3,7 @@ import { HiHome, HiMagnifyingGlass, HiPlayCircle, HiTv } from "react-icons/hi2";
 import { HiPlus, HiDotsVertical } from "react-icons/hi";
 import HeaderItem from "./HeaderItem";
 import { IconType } from "react-icons";
+import { useNavigate } from "react-router-dom";
 
 interface MenuItem {
   name: string;
@@ -12,6 +13,7 @@ interface MenuItem {
 
 const Header: React.FC = () => {
   const [toggle, setToggle] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const menu: MenuItem[] = [
     {
@@ -42,11 +44,12 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <div className="flex items-center justify-between p-5">
+    <div className="flex items-center justify-between px-5 pt-5">
       <div className="flex  gap-8 items-center">
         <img
           src="/Images/logo.svg"
           className="w-[80px] md:w-[115px] object-cover"
+          onClick={() => navigate("/")}
         />
         <div className="hidden md:flex gap-8">
           {menu.map((item) => (

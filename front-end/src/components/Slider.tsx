@@ -1,14 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import { useApiStore } from "../store/apiStore";
-import { mockData } from "../mock-json";
 import type { Show } from "../store/apiStore";
 
 const screenWidth = window.innerWidth; //inner windth
 
 const Slider: React.FC = () => {
   const { getTopShows } = useApiStore();
-  const [moviesList, setMoviesList] = useState<Show[]>(mockData);
+  const [moviesList, setMoviesList] = useState<Show[]>([]);
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -63,12 +62,12 @@ const Slider: React.FC = () => {
     <div>
       <HiChevronLeft
         className="hidden md:block text-white w-8 h-8 md:w-12 md:h-12 z-10 absolute -left-4
-        mx-8 mt-[150px] cursor-pointer opacity-80 hover:opacity-100"
+        mx-8 mt-[160px] cursor-pointer opacity-80 hover:opacity-100"
         onClick={() => sliderLeft(elementRef.current)}
       />
       <HiChevronRight
         className="hidden md:block text-white w-8 h-8 md:w-12 md:h-12 z-10 absolute
-        mx-8 mt-[150px] cursor-pointer -right-4 opacity-80 hover:opacity-100"
+        mx-8 mt-[160px] cursor-pointer -right-4 opacity-80 hover:opacity-100"
         onClick={() => sliderRight(elementRef.current)}
       />
 
@@ -83,7 +82,7 @@ const Slider: React.FC = () => {
             src={item?.imageSet?.horizontalPoster?.w1080 ?? ""}
             alt={item?.title ?? "Movie poster"}
             loading="lazy"
-            className={`min-w-full md:h-[310px] object-fill mr-5 rounded-md hover:border-[4px]
+            className={`min-w-full md:h-[360px] object-fill mr-5 rounded-md hover:border-[4px]
               border-gray-400 transition-all duration-300 ease-in blur-sm`}
             onLoad={(e) =>
               (e.target as HTMLImageElement).classList.remove("blur-sm")

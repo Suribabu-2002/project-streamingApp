@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import HrMovieCard from "./HrMovieCard";
 import { useApiStore } from "../store/apiStore";
-import { mockData } from "../mock-json";
-import type { Show } from "../store/apiStore";
+import { Show } from "streaming-availability";
 
 interface MovieListProps {
   genreId: string;

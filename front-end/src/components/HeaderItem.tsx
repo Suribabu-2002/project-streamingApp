@@ -14,7 +14,7 @@ const HeaderItem: React.FC<HeaderItemProps> = ({ name, Icon, redirectUrl }) => {
   return (
     <div
       className="text-white flex items-center gap-3
-    text-[15px] font-semibold mb-2"
+    text-[15px] font-semibold"
     >
       <Icon />
       <button className="bg-inherit" onClick={() => navigate(redirectUrl)}>

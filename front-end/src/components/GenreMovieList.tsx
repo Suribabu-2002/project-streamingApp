@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MovieList from "./MovieList";
 import { useApiStore } from "../store/apiStore";
-import { mockGenres } from "../mock-json";
-import type { Genre } from "../store/apiStore";
 
 const GenreMovieList: React.FC = () => {
   const { getGenres } = useApiStore();
@@ -12,7 +10,6 @@ const GenreMovieList: React.FC = () => {
     const fetchGenres = async () => {
       try {
         const response = await getGenres();
-        console.log(response);
         setGenres(response.genres || []);
       } catch (err) {
         console.error("Error fetching genres:", err);

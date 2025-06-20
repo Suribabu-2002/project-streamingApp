@@ -79,3 +79,20 @@ export const deleteWatchlist = async (req, res) => {
       .json({ message: "Error deleting watchList", error: error.message });
   }
 };
+
+export const getMovie = async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    if (isNaN(id))
+      return res.status(400).json({ error: "invalid id or missing id" });
+    const movie = await Movie.findOne({ id });
+    const watchListed = await WatchList.exists({ id });
+    const isWatchListed = !!watchListed;
+    res.status(200).json({ isWatchListed, movie });
+  } catch (error) {
+    console.error("Error fetching Movie:", error);
+    res
+      .status(500)
+      .json({ message: "Error deleting watchList", error: error.message });
+  }
+};

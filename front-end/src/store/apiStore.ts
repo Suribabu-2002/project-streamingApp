@@ -8,26 +8,27 @@ type ShowType = string;
 type ItemType = "show";
 
 export interface Show {
-  id: string;
-  title: string;
-  itemType: ItemType;
-  showType: ShowType;
-  imdbId: string;
-  tmdbId: string;
-  originalTitle: string;
-  genres: Genre[];
-  firstAirYear: number;
-  lastAirYear: number;
-  overview: string;
-  creators: string[];
-  cast: string[];
-  rating: number;
+  id?: string;
+  title?: string;
+  itemType?: ItemType;
+  runtime?: number;
+  showType?: ShowType;
+  imdbId?: string;
+  tmdbId?: string;
+  originalTitle?: string;
+  genres?: Genre[];
+  firstAirYear?: number;
+  lastAirYear?: number;
+  overview?: string;
+  creators?: string[];
+  cast?: string[];
+  rating?: number;
   seasonCount?: number;
   episodeCount?: number;
   streamingOptions?: any;
   releaseYear?: number;
   directors?: string[];
-  imageSet: {
+  imageSet?: {
     verticalPoster: {
       w240: string;
       w360: string;
@@ -67,6 +68,7 @@ export interface Genre {
 interface ApiState {
   shows: Show[];
   filteredShows: Show[];
+  movie: Show;
   genres: string[];
   loading: boolean;
   error: string | null;
@@ -78,12 +80,21 @@ interface ApiState {
   getGenres: () => Promise<any>;
   getWatchList: () => Promise<any>;
   getTitleSearch: (title: string) => Promise<any>;
+  getMovie: (id: string) => Promise<any>;
+  postWatchList: (
+    id: number,
+    title: string,
+    imdbId: string,
+    showType: string,
+  ) => Promise<any>;
+  deleteWatchList: (id: number) => Promise<any>;
 }
 
 export const useApiStore = create<ApiState>((set, get) => ({
   shows: [],
   filteredShows: [],
   genres: [],
+  movie: {},
   loading: false,
   error: null,
   client: new streamingAvailability.Client(
@@ -152,6 +163,50 @@ export const useApiStore = create<ApiState>((set, get) => ({
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
+      throw error;
+    }
+  },
+
+  getMovie: async (id: string) => {
+    try {
+      set({ loading: true, error: null });
+      const response = await axios.get(`/api/movie/${id}`, {});
+      const movie: any = response.data;
+      set({ loading: false });
+      return movie;
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
+      throw error;
+    }
+  },
+  postWatchList: async (
+    id: number,
+    title: string,
+    imdbId: string,
+    showType: string,
+  ) => {
+    try {
+      set({ loading: true, error: null });
+      const response = await axios.post(`/api/watchList/${id}`, {
+        title,
+        imdbId,
+        showType,
+      });
+      set({ loading: false });
+      return response.data;
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
+      throw error;
+    }
+  },
+  deleteWatchList: async (id: number) => {
+    try {
+      set({ loading: true, error: null });
+      const response = await axios.delete(`/api/watchList/${id}`, {});
+      set({ loading: false });
+      return response.data;
     } catch (error: any) {
       set({ error: error.message, loading: false });
       throw error;
