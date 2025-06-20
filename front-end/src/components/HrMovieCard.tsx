@@ -17,7 +17,7 @@ interface HrMovieCardProps {
 
 const HrMovieCard: React.FC<HrMovieCardProps> = ({ movie }) => {
   return (
-    <section className="hover:scale-110 transition-all duration-150 ease-in">
+    <section className="hover:scale-110 transition-all duration-150 ease-in w-fit">
       <img
         src={movie.imageSet.verticalPoster.w720}
         className="w-[110px] md:w-[260px] h-52 md:h-[360px] rounded-lg hover:border-[3px] border-gray-400 cursor-pointer"

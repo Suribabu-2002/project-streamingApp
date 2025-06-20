@@ -76,6 +76,7 @@ interface ApiState {
   getTopShows: (count: number) => Promise<any>;
   getFilteredShows: (genreId: string) => Promise<any>;
   getGenres: () => Promise<any>;
+  getWatchList: () => Promise<any>;
   getTitleSearch: (title: string) => Promise<any>;
 }
 
@@ -139,6 +140,18 @@ export const useApiStore = create<ApiState>((set, get) => ({
       const genres: any = response.data;
       set({ genres, loading: false });
       return genres;
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
+      throw error;
+    }
+  },
+  getWatchList: async () => {
+    try {
+      set({ loading: true, error: null });
+      const response = await axios.get(`/api/watch-list`, {});
+      const shows: any = response.data;
+      set({ shows, loading: false });
+      return shows;
     } catch (error: any) {
       set({ error: error.message, loading: false });
       throw error;

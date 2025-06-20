@@ -5,8 +5,17 @@ import getPagination from "../utils/getPagination.js";
 export const postWatchlist = async (req, res) => {
   try {
     const id = Number(req.params.id);
+    if (isNaN(id))
+      return res.status(400).json({ message: "Invalid ID format" });
+
     if (!req.body)
       return res.status(400).json({ message: "body is mismatched or Empty" });
+
+    const exists = await WatchList.findOne({ id });
+    if (exists) {
+      return res.status(409).json({ message: "Watchlist item already exists" });
+    }
+
     const { title, showType, imdbId } = req.body;
     const newWatchList = new WatchList({
       id,
