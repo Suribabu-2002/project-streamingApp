@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Show, useApiStore } from "../store/apiStore";
+import {  useApiStore } from "../store/apiStore";
 import HrMovieCard from "../components/HrMovieCard";
+import { Show } from "streaming-availability";
 
 const Watchlist = () => {
   const [movieList, setMovieList] = useState<Show[]>([]);

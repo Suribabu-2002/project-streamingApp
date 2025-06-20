@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HrMovieCard from "../components/HrMovieCard";
-import { Show, useApiStore } from "../store/apiStore";
+import { useApiStore } from "../store/apiStore";
+import { Show } from "streaming-availability";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
