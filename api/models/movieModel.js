@@ -1,4 +1,3 @@
-// models/Movie.js
 import mongoose from 'mongoose';
 
 // Sub-schema for image sets (vertical, horizontal posters, backdrops)
