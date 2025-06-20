@@ -17,28 +17,28 @@ const Header: React.FC = () => {
     {
       name: "HOME",
       icon: HiHome,
-      redirectUrl: "/"
+      redirectUrl: "/",
     },
     {
       name: "SEARCH",
       icon: HiMagnifyingGlass,
-      redirectUrl: "/search"
+      redirectUrl: "/search",
     },
     {
       name: "WATCH LIST",
       icon: HiPlus,
-      redirectUrl: "/watch-list"
+      redirectUrl: "/watch-list",
     },
     {
       name: "MOVIES",
       icon: HiPlayCircle,
-      redirectUrl: "/movies"
+      redirectUrl: "/movies",
     },
     {
       name: "TV",
       icon: HiTv,
-      redirectUrl: "/tv"
-    }
+      redirectUrl: "/tv",
+    },
   ];
 
   return (
@@ -50,15 +50,25 @@ const Header: React.FC = () => {
         />
         <div className="hidden md:flex gap-8">
           {menu.map((item) => (
-            <HeaderItem key={item.name} name={item.name} Icon={item.icon} redirectUrl={item.redirectUrl} />
+            <HeaderItem
+              key={item.name}
+              name={item.name}
+              Icon={item.icon}
+              redirectUrl={item.redirectUrl}
+            />
           ))}
         </div>
         <div className="flex md:hidden gap-5">
           {menu.map(
             (item, index) =>
               index < 3 && (
-                <HeaderItem key={item.name} name={""} Icon={item.icon} redirectUrl={item.redirectUrl} />
-              )
+                <HeaderItem
+                  key={item.name}
+                  name={""}
+                  Icon={item.icon}
+                  redirectUrl={item.redirectUrl}
+                />
+              ),
           )}
           <div className="md:hidden" onClick={() => setToggle(!toggle)}>
             <HeaderItem name={""} Icon={HiDotsVertical} redirectUrl={""} />
@@ -67,8 +77,13 @@ const Header: React.FC = () => {
                 {menu.map(
                   (item, index) =>
                     index > 2 && (
-                      <HeaderItem key={item.name} name={item.name} Icon={item.icon} redirectUrl={item.redirectUrl} />
-                    )
+                      <HeaderItem
+                        key={item.name}
+                        name={item.name}
+                        Icon={item.icon}
+                        redirectUrl={item.redirectUrl}
+                      />
+                    ),
                 )}
               </div>
             ) : null}

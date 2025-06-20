@@ -33,8 +33,13 @@ export const getWatchlist = async (req, res) => {
     // Get all ids from WatchList
     const watchListIds = await WatchList.find(filter).distinct("id");
     // Find movies whose id is in watchListIds
-    const movies = await Movie.find({ id: { $in: watchListIds } }).skip(skip).limit(limit).lean();
-    const total_movies = await Movie.countDocuments({ id: { $in: watchListIds } });
+    const movies = await Movie.find({ id: { $in: watchListIds } })
+      .skip(skip)
+      .limit(limit)
+      .lean();
+    const total_movies = await Movie.countDocuments({
+      id: { $in: watchListIds },
+    });
     res.status(200).json({
       total_movies,
       page,
@@ -51,15 +56,17 @@ export const getWatchlist = async (req, res) => {
 };
 
 export const deleteWatchlist = async (req, res) => {
-    try {
-        const id = Number(req.params.id);
-        const deleted = await WatchList.findOneAndDelete({ id });
-        if (!deleted) {
-            return res.status(404).json({ message: "Watchlist item not found" });
-        }
-        res.status(200).json({ message: "Watchlist item deleted" });
-    } catch (error) {
-        console.error("Error deleting watchList:", error);
-        res.status(500).json({ message: "Error deleting watchList", error: error.message });
+  try {
+    const id = Number(req.params.id);
+    const deleted = await WatchList.findOneAndDelete({ id });
+    if (!deleted) {
+      return res.status(404).json({ message: "Watchlist item not found" });
     }
+    res.status(200).json({ message: "Watchlist item deleted" });
+  } catch (error) {
+    console.error("Error deleting watchList:", error);
+    res
+      .status(500)
+      .json({ message: "Error deleting watchList", error: error.message });
+  }
 };

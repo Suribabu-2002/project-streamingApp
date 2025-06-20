@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ProductionHouse {
   id: number;
@@ -10,28 +10,28 @@ const ProductionHouse: React.FC = () => {
   const productionHouseList: ProductionHouse[] = [
     {
       id: 1,
-      image: '/Images/disney.png',
-      video: '/Videos/disney.mp4'
+      image: "/Images/disney.png",
+      video: "/Videos/disney.mp4",
     },
     {
       id: 2,
-      image: '/Images/pixar.png',
-      video: '/Videos/pixar.mp4'
+      image: "/Images/pixar.png",
+      video: "/Videos/pixar.mp4",
     },
     {
       id: 3,
-      image: '/Images/marvel.png',
-      video: '/Videos/marvel.mp4'
+      image: "/Images/marvel.png",
+      video: "/Videos/marvel.mp4",
     },
     {
       id: 4,
-      image: '/Images/starwar.png',
-      video: '/Videos/star-wars.mp4'
+      image: "/Images/starwar.png",
+      video: "/Videos/star-wars.mp4",
     },
     {
       id: 5,
-      image: '/Images/nationalG.png',
-      video: '/Videos/national-geographic.mp4'
+      image: "/Images/nationalG.png",
+      video: "/Videos/national-geographic.mp4",
     },
   ];
 

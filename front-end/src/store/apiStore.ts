@@ -28,30 +28,30 @@ export interface Show {
   releaseYear?: number;
   directors?: string[];
   imageSet: {
-      verticalPoster: {
-        w240: string;
-        w360: string;
-          w480: string;
-          w600: string;
-        w720: string;
+    verticalPoster: {
+      w240: string;
+      w360: string;
+      w480: string;
+      w600: string;
+      w720: string;
     };
-      verticalBackdrop?: {
-        w240?: string;
-        w360?: string;
-          w480?: string;
-          w600?: string;
-        w720?: string;
+    verticalBackdrop?: {
+      w240?: string;
+      w360?: string;
+      w480?: string;
+      w600?: string;
+      w720?: string;
     };
     horizontalPoster: {
-        w360: string;
-          w480: string;
+      w360: string;
+      w480: string;
       w720: string;
       w1080: string;
       w1440: string;
     };
     horizontalBackdrop: {
-        w360: string;
-          w480: string;
+      w360: string;
+      w480: string;
       w720: string;
       w1080: string;
       w1440: string;
@@ -73,7 +73,7 @@ interface ApiState {
   client: streamingAvailability.Client;
   setLoading: (status: boolean) => void;
   setError: (error: string | null) => void;
-  getTopShows: (count:number) => Promise<any>;
+  getTopShows: (count: number) => Promise<any>;
   getFilteredShows: (genreId: string) => Promise<any>;
   getGenres: () => Promise<any>;
   getTitleSearch: (title: string) => Promise<any>;
@@ -88,17 +88,16 @@ export const useApiStore = create<ApiState>((set, get) => ({
   client: new streamingAvailability.Client(
     new streamingAvailability.Configuration({
       apiKey: RAPID_API_KEY,
-    })
+    }),
   ),
 
   setLoading: (status: boolean) => set({ loading: status }),
   setError: (error: string | null) => set({ error }),
 
-  getTopShows: async (count:number) => {
+  getTopShows: async (count: number) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`/api/movies?topShows=${count}`, {
-      });
+      const response = await axios.get(`/api/movies?topShows=${count}`, {});
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
@@ -107,11 +106,10 @@ export const useApiStore = create<ApiState>((set, get) => ({
       throw error;
     }
   },
-  getTitleSearch: async (title:string) => {
+  getTitleSearch: async (title: string) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`/api/movies?title=${title}`, {
-      });
+      const response = await axios.get(`/api/movies?title=${title}`, {});
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
@@ -124,8 +122,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getFilteredShows: async (genreId: string) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`/api/movies?genre=${genreId}`, {
-      });
+      const response = await axios.get(`/api/movies?genre=${genreId}`, {});
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
@@ -138,8 +135,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getGenres: async () => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get("/api/genres", {
-      });
+      const response = await axios.get("/api/genres", {});
       const genres: any = response.data;
       set({ genres, loading: false });
       return genres;

@@ -34,21 +34,21 @@ const Slider: React.FC = () => {
     return () => clearInterval(interval);
   }, [screenWidth]);
 
-  const sliderRight = (element) => {
-    if (elementRef.current) {
-      const scrollAmount =
-        screenWidth - (screenWidth - elementRef.current.offsetWidth + 108);
+  const sliderRight = (element: HTMLDivElement | null) => {
+    if (!element || !elementRef.current) return;
 
-      if (element.scrollLeft + element.clientWidth >= element.scrollWidth - 10) {
-        element.scrollLeft = 0;
-      } else {
-        element.scrollLeft += scrollAmount;
-      }
+    const scrollAmount =
+      screenWidth - (screenWidth - elementRef.current.offsetWidth + 108);
+
+    if (element.scrollLeft + element.clientWidth >= element.scrollWidth - 10) {
+      element.scrollLeft = 0;
+    } else {
+      element.scrollLeft += scrollAmount;
     }
   };
 
-  const sliderLeft = (element) => {
-    if (!elementRef.current) return;
+  const sliderLeft = (element: HTMLDivElement | null) => {
+    if (!elementRef.current || !element) return;
     const scrollAmount =
       screenWidth - (screenWidth - elementRef.current.offsetWidth + 108);
 
@@ -85,7 +85,9 @@ const Slider: React.FC = () => {
             loading="lazy"
             className={`min-w-full md:h-[310px] object-fill mr-5 rounded-md hover:border-[4px]
               border-gray-400 transition-all duration-300 ease-in blur-sm`}
-            onLoad={(e) => (e.target as HTMLImageElement).classList.remove("blur-sm")}
+            onLoad={(e) =>
+              (e.target as HTMLImageElement).classList.remove("blur-sm")
+            }
           />
         ))}
       </div>

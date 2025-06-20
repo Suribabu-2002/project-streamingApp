@@ -12,7 +12,7 @@ const GenreMovieList: React.FC = () => {
     const fetchGenres = async () => {
       try {
         const response = await getGenres();
-        console.log(response)
+        console.log(response);
         setGenres(response.genres || []);
       } catch (err) {
         console.error("Error fetching genres:", err);
@@ -26,13 +26,11 @@ const GenreMovieList: React.FC = () => {
       {genres.map(
         (item, index) =>
           index <= 10 && (
-            <div key={item} className="p-4 md:py-8 md:px-16" >
-              <h2 className="text-[20px] text-white font-bold">
-                {item}
-              </h2>
+            <div key={item} className="p-4 md:py-8 md:px-16">
+              <h2 className="text-[20px] text-white font-bold">{item}</h2>
               <MovieList genreId={item} />
             </div>
-          )
+          ),
       )}
     </div>
   );

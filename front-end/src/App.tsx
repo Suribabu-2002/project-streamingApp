@@ -8,7 +8,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="">
-       <Header />
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
@@ -16,6 +16,6 @@ const App: React.FC = () => {
       </div>
     </Router>
   );
-}
+};
 
 export default App;

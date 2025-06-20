@@ -30,7 +30,7 @@ const Search = () => {
       }
     };
     fetchMovies();
-  }, [title, getTitleSearch]);
+  }, [title]);
 
   return (
     <div className="px-16">
