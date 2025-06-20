@@ -3,6 +3,7 @@ import { HiHome, HiMagnifyingGlass, HiPlayCircle, HiTv } from "react-icons/hi2";
 import { HiPlus, HiDotsVertical } from "react-icons/hi";
 import HeaderItem from "./HeaderItem";
 import { IconType } from "react-icons";
+import { useNavigate } from "react-router-dom";
 
 interface MenuItem {
   name: string;
@@ -12,53 +13,65 @@ interface MenuItem {
 
 const Header: React.FC = () => {
   const [toggle, setToggle] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const menu: MenuItem[] = [
     {
       name: "HOME",
       icon: HiHome,
-      redirectUrl: "/"
+      redirectUrl: "/",
     },
     {
       name: "SEARCH",
       icon: HiMagnifyingGlass,
-      redirectUrl: "/search"
+      redirectUrl: "/search",
     },
     {
       name: "WATCH LIST",
       icon: HiPlus,
-      redirectUrl: "/watch-list"
+      redirectUrl: "/watch-list",
     },
     {
       name: "MOVIES",
       icon: HiPlayCircle,
-      redirectUrl: "/movies"
+      redirectUrl: "/movies",
     },
     {
       name: "TV",
       icon: HiTv,
-      redirectUrl: "/tv"
-    }
+      redirectUrl: "/tv",
+    },
   ];
 
   return (
-    <div className="flex items-center justify-between p-5">
+    <div className="flex items-center justify-between px-5 pt-5">
       <div className="flex  gap-8 items-center">
         <img
           src="/Images/logo.svg"
           className="w-[80px] md:w-[115px] object-cover"
+          onClick={() => navigate("/")}
         />
         <div className="hidden md:flex gap-8">
           {menu.map((item) => (
-            <HeaderItem key={item.name} name={item.name} Icon={item.icon} redirectUrl={item.redirectUrl} />
+            <HeaderItem
+              key={item.name}
+              name={item.name}
+              Icon={item.icon}
+              redirectUrl={item.redirectUrl}
+            />
           ))}
         </div>
         <div className="flex md:hidden gap-5">
           {menu.map(
             (item, index) =>
               index < 3 && (
-                <HeaderItem key={item.name} name={""} Icon={item.icon} redirectUrl={item.redirectUrl} />
-              )
+                <HeaderItem
+                  key={item.name}
+                  name={""}
+                  Icon={item.icon}
+                  redirectUrl={item.redirectUrl}
+                />
+              ),
           )}
           <div className="md:hidden" onClick={() => setToggle(!toggle)}>
             <HeaderItem name={""} Icon={HiDotsVertical} redirectUrl={""} />
@@ -67,8 +80,13 @@ const Header: React.FC = () => {
                 {menu.map(
                   (item, index) =>
                     index > 2 && (
-                      <HeaderItem key={item.name} name={item.name} Icon={item.icon} redirectUrl={item.redirectUrl} />
-                    )
+                      <HeaderItem
+                        key={item.name}
+                        name={item.name}
+                        Icon={item.icon}
+                        redirectUrl={item.redirectUrl}
+                      />
+                    ),
                 )}
               </div>
             ) : null}

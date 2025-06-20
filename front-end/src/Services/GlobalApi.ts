@@ -1,12 +1,12 @@
-import { useApiStore } from '../store/apiStore';
-import type { Show } from '../store/apiStore';
+import { useApiStore } from "../store/apiStore";
+import type { Show } from "../store/apiStore";
 
 const getTopShows = async (): Promise<Show[]> => {
-    return await useApiStore.getState().getTopShows();
+  return await useApiStore.getState().getTopShows();
 };
 
 const GlobalApi = {
-    getTopShows
+  getTopShows,
 };
 
 export default GlobalApi;
