@@ -6,18 +6,19 @@ import type { Genre } from "../store/apiStore";
 
 const GenreMovieList: React.FC = () => {
   const { getGenres } = useApiStore();
-  const [genres, setGenres] = useState<Genre[]>(mockGenres);
+  const [genres, setGenres] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchGenres = async () => {
       try {
         const response = await getGenres();
-        setGenres(response || []);
+        console.log(response)
+        setGenres(response.genres || []);
       } catch (err) {
         console.error("Error fetching genres:", err);
       }
     };
-    // fetchGenres();
+    fetchGenres();
   }, [getGenres]);
 
   return (
@@ -25,11 +26,11 @@ const GenreMovieList: React.FC = () => {
       {genres.map(
         (item, index) =>
           index <= 10 && (
-            <div key={item.id} className="p-4 md:py-8 md:px-16" id={item.id}>
+            <div key={item} className="p-4 md:py-8 md:px-16" >
               <h2 className="text-[20px] text-white font-bold">
-                {item.name}
+                {item}
               </h2>
-              <MovieList genreId={item.id} />
+              <MovieList genreId={item} />
             </div>
           )
       )}

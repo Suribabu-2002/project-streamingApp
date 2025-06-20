@@ -11,7 +11,7 @@ interface MovieListProps {
 }
 
 const MovieList: React.FC<MovieListProps> = ({ genreId, index_ }) => {
-  const [movieList, setMovieList] = useState<Show[]>(mockData);
+  const [movieList, setMovieList] = useState<Show[]>([]);
   const elementRef = useRef<HTMLDivElement>(null);
   const { getFilteredShows } = useApiStore();
   const [isApiFailed, setIsApiFailed] = useState<boolean>(false);
@@ -20,13 +20,13 @@ const MovieList: React.FC<MovieListProps> = ({ genreId, index_ }) => {
     const fetchMovies = async () => {
       try {
         const response = await getFilteredShows(genreId);
-        setMovieList(response.shows || []);
+        setMovieList(response.movies || []);
       } catch (err) {
         console.error("Error fetching movies:", err);
         setIsApiFailed(true);
       }
     };
-    // fetchMovies();
+    fetchMovies();
   }, [genreId, getFilteredShows]);
 
   const slideRight = (element: HTMLDivElement): void => {
@@ -42,7 +42,7 @@ const MovieList: React.FC<MovieListProps> = ({ genreId, index_ }) => {
       <IoChevronBackOutline
         onClick={() => elementRef.current && slideLeft(elementRef.current)}
         className={`text-[50px] text-white
-        p-2 z-10 cursor-pointer 
+        p-2 z-10 cursor-pointer
         hidden md:block absolute ${
           index_ && index_ % 3 === 0 ? "mt-[80px]" : "mt-[150px]"
         }`}
@@ -59,7 +59,7 @@ const MovieList: React.FC<MovieListProps> = ({ genreId, index_ }) => {
       <IoChevronForwardOutline
         onClick={() => elementRef.current && slideRight(elementRef.current)}
         className={`text-[50px] text-white hidden md:block
-        p-2 cursor-pointer z-10 top-0 
+        p-2 cursor-pointer z-10 top-0
         absolute right-0 ${index_ && index_ % 3 === 0 ? "mt-[80px]" : "mt-[150px]"}`}
       />
     </div>
