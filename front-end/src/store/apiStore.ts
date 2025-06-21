@@ -138,7 +138,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getGenres: async () => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get("${BACKEND_URL}/genres", {});
+      const response = await axios.get(`${BACKEND_URL}/genres`, {});
       const genres: any = response.data;
       set({ genres, loading: false });
       return genres;
