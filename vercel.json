@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "outputDirectory": "front-end/dist",
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/app.js" },
     { "src": "/(.*)", "dest": "/front-end/dist/index.html" }
