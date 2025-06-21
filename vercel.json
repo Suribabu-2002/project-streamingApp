@@ -2,7 +2,9 @@
   "version": 2,
   "outputDirectory": "front-end/dist",
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/app.js" },
+    { "src": "/api/movies", "dest": "/api/app.js" },
+    { "src": "/api/genres", "dest": "/api/app.js" },
+    { "src": "/api/watchList", "dest": "/api/app.js" },
     { "src": "/(.*)", "dest": "/front-end/dist/index.html" }
   ]
 }
