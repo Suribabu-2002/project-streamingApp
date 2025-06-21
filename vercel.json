@@ -2,6 +2,8 @@
   "version": 2,
   "routes": [
     { "src": "/api/movies", "dest": "/api/movies.js" },
+    { "src": "/api/genres", "dest": "/api/genres.js" },
+    { "src": "/api/watchList", "dest": "/api/watchList.js" },
     { "src": "/(.*)", "dest": "/front-end/dist/index.html" }
   ]
 }
