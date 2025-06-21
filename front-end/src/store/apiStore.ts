@@ -1,10 +1,8 @@
 import { create } from "zustand";
-import * as streamingAvailability from "streaming-availability";
 import axios from "axios";
 
-const RAPID_API_KEY = "a85bd9e89dmsh6c727d139c51e2dp1a0efejsnec97f6c3f8c1";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:8080";
 
-type ShowType = string;
 type ItemType = "show";
 
 export interface Show {
@@ -12,7 +10,7 @@ export interface Show {
   title?: string;
   itemType?: ItemType;
   runtime?: number;
-  showType?: ShowType;
+  showType?: string;
   imdbId?: string;
   tmdbId?: string;
   originalTitle?: string;
@@ -72,7 +70,6 @@ interface ApiState {
   genres: string[];
   loading: boolean;
   error: string | null;
-  client: streamingAvailability.Client;
   setLoading: (status: boolean) => void;
   setError: (error: string | null) => void;
   getTopShows: (count: number) => Promise<any>;
@@ -97,19 +94,13 @@ export const useApiStore = create<ApiState>((set, get) => ({
   movie: {},
   loading: false,
   error: null,
-  client: new streamingAvailability.Client(
-    new streamingAvailability.Configuration({
-      apiKey: RAPID_API_KEY,
-    }),
-  ),
-
   setLoading: (status: boolean) => set({ loading: status }),
   setError: (error: string | null) => set({ error }),
 
   getTopShows: async (count: number) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`/api/movies?topShows=${count}`, {});
+      const response = await axios.get(`${BACKEND_URL}/movies?topShows=${count}`, {});
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
@@ -121,7 +112,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getTitleSearch: async (title: string) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`/api/movies?title=${title}`, {});
+      const response = await axios.get(`${BACKEND_URL}/movies?title=${title}`, {});
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
@@ -134,7 +125,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getFilteredShows: async (genreId: string) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`/api/movies?genre=${genreId}`, {});
+      const response = await axios.get(`${BACKEND_URL}/movies?genre=${genreId}`, {});
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
@@ -147,7 +138,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getGenres: async () => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get("/api/genres", {});
+      const response = await axios.get("${BACKEND_URL}/genres", {});
       const genres: any = response.data;
       set({ genres, loading: false });
       return genres;
@@ -159,7 +150,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getWatchList: async () => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`/api/watch-list`, {});
+      const response = await axios.get(`${BACKEND_URL}/watch-list`, {});
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
@@ -172,7 +163,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getMovie: async (id: string) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`/api/movie/${id}`, {});
+      const response = await axios.get(`${BACKEND_URL}/movie/${id}`, {});
       const movie: any = response.data;
       set({ loading: false });
       return movie;
@@ -189,7 +180,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   ) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.post(`/api/watchList/${id}`, {
+      const response = await axios.post(`${BACKEND_URL}/watchList/${id}`, {
         title,
         imdbId,
         showType,
@@ -204,7 +195,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   deleteWatchList: async (id: number) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.delete(`/api/watchList/${id}`, {});
+      const response = await axios.delete(`${BACKEND_URL}/watchList/${id}`, {});
       set({ loading: false });
       return response.data;
     } catch (error: any) {
