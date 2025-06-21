@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "outputDirectory": "front-end/dist",
   "routes": [
     { "src": "/api/movies", "dest": "/api/movies.js" },
     { "src": "/api/genres", "dest": "/api/genres.js" },
