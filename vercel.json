@@ -1,10 +1,18 @@
 {
   "version": 2,
-  "outputDirectory": "front-end/dist",
+  "builds": [
+    {
+      "src": "front-end/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "front-end/dist"
+      }
+    }
+  ],
   "routes": [
-    { "src": "/api/movies", "dest": "/api/movies.js" },
-    { "src": "/api/genres", "dest": "/api/genres.js" },
-    { "src": "/api/watchList", "dest": "/api/watchList.js" },
-    { "src": "/(.*)", "dest": "/front-end/dist/index.html" }
+    {
+      "src": "/(.*)",
+      "dest": "/front-end/dist/index.html"
+    }
   ]
 }
