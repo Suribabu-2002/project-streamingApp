@@ -73,7 +73,11 @@ interface ApiState {
   setLoading: (status: boolean) => void;
   setError: (error: string | null) => void;
   getTopShows: (count: number) => Promise<any>;
-  getFilteredShows: (genreId: string) => Promise<any>;
+  getFilteredShows: (
+    genreId: string,
+    pageSize?: number,
+    pageNumber?: number
+  ) => Promise<any>;
   getGenres: () => Promise<any>;
   getWatchList: () => Promise<any>;
   getTitleSearch: (title: string) => Promise<any>;
@@ -82,7 +86,7 @@ interface ApiState {
     id: number,
     title: string,
     imdbId: string,
-    showType: string,
+    showType: string
   ) => Promise<any>;
   deleteWatchList: (id: number) => Promise<any>;
 }
@@ -100,7 +104,10 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getTopShows: async (count: number) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`${BACKEND_URL}/movies?topShows=${count}`, {});
+      const response = await axios.get(
+        `${BACKEND_URL}/movies?topShows=${count}`,
+        {}
+      );
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
@@ -112,7 +119,10 @@ export const useApiStore = create<ApiState>((set, get) => ({
   getTitleSearch: async (title: string) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`${BACKEND_URL}/movies?title=${title}`, {});
+      const response = await axios.get(
+        `${BACKEND_URL}/movies?title=${title}`,
+        {}
+      );
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
@@ -122,10 +132,13 @@ export const useApiStore = create<ApiState>((set, get) => ({
     }
   },
 
-  getFilteredShows: async (genreId: string) => {
+  getFilteredShows: async (genreId: string, pageSize = 10, pageNumber = 1) => {
     try {
       set({ loading: true, error: null });
-      const response = await axios.get(`${BACKEND_URL}/movies?genre=${genreId}`, {});
+      const response = await axios.get(
+        `${BACKEND_URL}/movies?genre=${genreId}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
+        {}
+      );
       const shows: any = response.data;
       set({ shows, loading: false });
       return shows;
@@ -176,7 +189,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
     id: number,
     title: string,
     imdbId: string,
-    showType: string,
+    showType: string
   ) => {
     try {
       set({ loading: true, error: null });
