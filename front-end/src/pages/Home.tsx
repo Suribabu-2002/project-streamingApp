@@ -6,8 +6,7 @@ import GenreMovieList from "../components/GenreMovieList";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
-  const { isAuthenticated, loginWithRedirect, user } = useAuth0()
-  console.log("user",user)
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
 
   useEffect(() => {
     if (!isAuthenticated)  loginWithRedirect();
