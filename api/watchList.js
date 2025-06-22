@@ -10,7 +10,9 @@ if (!cached) {
 async function connectDB() {
   if (cached.conn) return cached.conn;
   if (!cached.promise) {
-    cached.promise = mongoose.connect(process.env.MONGO_URI).then((mongoose) => mongoose);
+    cached.promise = mongoose
+      .connect(process.env.MONGO_URI)
+      .then((mongoose) => mongoose);
   }
   cached.conn = await cached.promise;
   return cached.conn;
@@ -27,7 +29,9 @@ export default async function handler(req, res) {
       // Add a new item to the watchlist
       const newItem = new WatchList(req.body);
       await newItem.save();
-      return res.status(201).json({ message: "Added to watchlist", item: newItem });
+      return res
+        .status(201)
+        .json({ message: "Added to watchlist", item: newItem });
     } else if (req.method === "DELETE") {
       // Remove an item from the watchlist by id
       const { id } = req.query;
@@ -38,6 +42,8 @@ export default async function handler(req, res) {
       res.status(405).json({ message: "Method not allowed" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error handling watchlist", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error handling watchlist", error: error.message });
   }
 }
