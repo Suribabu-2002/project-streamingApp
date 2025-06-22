@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {  useApiStore } from "../store/apiStore";
+import { useApiStore } from "../store/apiStore";
 import HrMovieCard from "../components/HrMovieCard";
 import { Show } from "streaming-availability";
+import LoadingScreen from "../components/loadingScreen";
 
 const Watchlist = () => {
   const [movieList, setMovieList] = useState<Show[]>([]);
-  const { getWatchList } = useApiStore();
+  const { getWatchList, loading } = useApiStore();
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -18,6 +19,19 @@ const Watchlist = () => {
     fetchMovies();
   }, []);
 
+  useEffect(() => {
+    if (loading) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [loading]);
+
+  if (loading) return <LoadingScreen />;
   return (
     <div className="px-16">
       <div className="grid grid-cols-4 gap-x-5 gap-y-10 py-10 justify-items-center items-center">

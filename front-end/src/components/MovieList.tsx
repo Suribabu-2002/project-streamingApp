@@ -18,7 +18,7 @@ const MovieList: React.FC<MovieListProps> = ({ genreId, index_ }) => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await getFilteredShows(genreId,);
+        const response = await getFilteredShows(genreId);
         setMovieList(response.movies || []);
       } catch (err) {
         console.error("Error fetching movies:", err);

@@ -2,11 +2,12 @@ import React, { useRef, useEffect, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import { useApiStore } from "../store/apiStore";
 import type { Show } from "../store/apiStore";
+import LoadingScreen from "./loadingScreen";
 
 const screenWidth = window.innerWidth; //inner windth
 
 const Slider: React.FC = () => {
-  const { getTopShows } = useApiStore();
+  const { loading, getTopShows } = useApiStore();
   const [moviesList, setMoviesList] = useState<Show[]>([]);
   const elementRef = useRef<HTMLDivElement>(null);
 
@@ -33,6 +34,18 @@ const Slider: React.FC = () => {
     return () => clearInterval(interval);
   }, [screenWidth]);
 
+  useEffect(() => {
+    if (loading) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [loading]);
+
   const sliderRight = (element: HTMLDivElement | null) => {
     if (!element || !elementRef.current) return;
 
@@ -58,6 +71,7 @@ const Slider: React.FC = () => {
     }
   };
 
+  if (loading) return <LoadingScreen />;
   return (
     <div>
       <HiChevronLeft

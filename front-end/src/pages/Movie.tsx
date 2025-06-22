@@ -4,6 +4,7 @@ import { minsToHHMMSS } from "../utils/timeFormat";
 import { FaBookmark, FaPlayCircle, FaRegBookmark } from "react-icons/fa";
 import { Show } from "streaming-availability";
 import HrMovieCard from "../components/HrMovieCard";
+import LoadingScreen from "../components/loadingScreen";
 
 const Movie = () => {
   const id = window.location.pathname.split("/").pop();
@@ -79,6 +80,20 @@ const Movie = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (loading) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [loading]);
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <div className="flex flex-col mx-5">

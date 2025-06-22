@@ -4,7 +4,7 @@ import { useApiStore } from "../store/apiStore";
 
 const GenreMovieList: React.FC = () => {
   const { getGenres } = useApiStore();
-  const [genres, setGenres] = useState<{name:string,count:number}[]>([]);
+  const [genres, setGenres] = useState<{ name: string; count: number }[]>([]);
 
   useEffect(() => {
     const fetchGenres = async () => {
