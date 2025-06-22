@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ErrorBoundary from "../components/ErrorBoundary";
 import Slider from "../components/Slider";
 import ProductionHouse from "../components/ProductionHouse";
 import GenreMovieList from "../components/GenreMovieList";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
+  const { isAuthenticated, loginWithRedirect, user } = useAuth0()
+  console.log("user",user)
+
+  useEffect(() => {
+    if (!isAuthenticated)  loginWithRedirect();
+  },[isAuthenticated])
   return (
     <div>
       <ErrorBoundary>

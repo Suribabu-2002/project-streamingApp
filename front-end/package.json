@@ -9,9 +9,9 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "vercel-build": "npm run build"
-
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.3.0",
     "axios": "^1.3.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
