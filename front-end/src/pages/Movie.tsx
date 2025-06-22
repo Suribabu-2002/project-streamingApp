@@ -133,9 +133,9 @@ const Movie = () => {
               </button>
               <button
                 onClick={handleWatchList}
-                className="flex p-5 rounded-xl text-2xl justify-center items-center gap-2.5 bg-[#9e0400] mr-10 hover:border-none hover:scale-105 transition-all duration-300 ease-in-out transform"
+                className="flex p-5 rounded-xl text-xl justify-center items-center gap-2.5 bg-[#9e0400] mr-10 hover:border-none hover:scale-105 transition-all duration-300 ease-in-out transform"
               >
-                Add to Watch List{" "}
+                { isWatchListed ? "Remove from Watch List":" Add to Watch List" }
                 {isWatchListed ? (
                   <FaBookmark className="text-white" />
                 ) : (
