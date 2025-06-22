@@ -5,6 +5,7 @@ import Search from "./pages/Search";
 import Header from "./components/Header";
 import Watchlist from "./pages/watchlist";
 import Movie from "./pages/Movie";
+import Callback from "./pages/Callback";
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/callback" element={<Callback />} />
           <Route path="/search" element={<Search />} />
           <Route path="/watch-list" element={<Watchlist />} />
           <Route path="/movie/:id" element={<Movie />} />
