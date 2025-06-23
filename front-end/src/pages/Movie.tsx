@@ -73,7 +73,8 @@ const Movie = () => {
       const link = movie?.streamingOptions?.us?.find(
         (show) =>
           show.service.id.toLowerCase() === "netflix" ||
-          show.service.id === "disney"
+          show.service.id === "prime" ||
+          show.service.id === "disney",
       )?.link;
       if (link) {
         window.open(link, "_blank");
@@ -135,7 +136,9 @@ const Movie = () => {
                 onClick={handleWatchList}
                 className="flex p-5 rounded-xl text-xl justify-center items-center gap-2.5 bg-[#9e0400] mr-10 hover:border-none hover:scale-105 transition-all duration-300 ease-in-out transform"
               >
-                { isWatchListed ? "Remove from Watch List":" Add to Watch List" }
+                {isWatchListed
+                  ? "Remove from Watch List"
+                  : " Add to Watch List"}
                 {isWatchListed ? (
                   <FaBookmark className="text-white" />
                 ) : (

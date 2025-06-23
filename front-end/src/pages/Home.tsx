@@ -6,11 +6,11 @@ import GenreMovieList from "../components/GenreMovieList";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   useEffect(() => {
-    if (!isAuthenticated)  loginWithRedirect();
-  },[isAuthenticated])
+    if (!isAuthenticated) loginWithRedirect();
+  }, [isAuthenticated]);
   return (
     <div>
       <ErrorBoundary>
