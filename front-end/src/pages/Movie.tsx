@@ -72,7 +72,8 @@ const Movie = () => {
     if (movie) {
       const link = movie?.streamingOptions?.us?.find(
         (show) =>
-          (show.service.id.toLowerCase() === "netflix")
+          show.service.id.toLowerCase() === "netflix" ||
+          show.service.id === "disney"
       )?.link;
       if (link) {
         window.open(link, "_blank");
