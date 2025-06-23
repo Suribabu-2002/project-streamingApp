@@ -72,8 +72,7 @@ const Movie = () => {
     if (movie) {
       const link = movie?.streamingOptions?.us?.find(
         (show) =>
-          (show.type === "buy" || show.type === "subscription") &&
-          show.service.id !== "apple",
+          (show.service.id.toLowerCase() === "netflex")
       )?.link;
       if (link) {
         window.open(link, "_blank");
