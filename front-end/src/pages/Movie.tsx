@@ -72,7 +72,7 @@ const Movie = () => {
     if (movie) {
       const link = movie?.streamingOptions?.us?.find(
         (show) =>
-          (show.service.id.toLowerCase() === "netflex")
+          (show.service.id.toLowerCase() === "netflix")
       )?.link;
       if (link) {
         window.open(link, "_blank");
