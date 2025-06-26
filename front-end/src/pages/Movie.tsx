@@ -5,9 +5,11 @@ import { FaBookmark, FaPlayCircle, FaRegBookmark } from "react-icons/fa";
 import { Show } from "streaming-availability";
 import HrMovieCard from "../components/HrMovieCard";
 import LoadingScreen from "../components/loadingScreen";
+import { useLocation } from "react-router-dom";
 
 const Movie = () => {
-  const id = window.location.pathname.split("/").pop();
+  const { pathname } = useLocation();
+  const id = pathname.split("/").pop();
   const {
     getMovie,
     loading,
@@ -30,7 +32,7 @@ const Movie = () => {
       }
     };
     fetchMovie();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const fetchMovies = async () => {
